@@ -1,0 +1,16 @@
+[package]
+name = "settle"
+version = "0.1.0"
+edition = "2021"
+description = "Settle: Stripe-grade payment rails on NEAR (invoices, checkout, payroll, streams, subscriptions, splits, AI-agent spend policies, email claim links)"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+near-sdk = { workspace = true }
+
+[dev-dependencies]
+near-sdk = { workspace = true, features = ["unit-testing"] }
+ed25519-dalek = "2"
+bs58 = "0.5"
