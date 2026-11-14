@@ -1,0 +1,12 @@
+[package]
+name = "mock-ft"
+version = "0.1.0"
+edition = "2021"
+description = "Testnet stablecoin (sUSD, 6 decimals) with an open faucet, for demos"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+near-sdk = { workspace = true }
+near-contract-standards = { workspace = true }
