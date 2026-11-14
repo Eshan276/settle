@@ -1,0 +1,28 @@
+// Screenshots /sample4 (WebGL via SwiftShader) and drags a mixer fader to check the rebalance keeps the total.
+import puppeteer from "puppeteer-core";
+const b = await puppeteer.launch({ executablePath: "/bin/google-chrome-stable", headless: true, args: ["--no-sandbox", "--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist"] });
+const p = await b.newPage();
+await p.setViewport({ width: 1440, height: 900 });
+const errs = [];
+p.on("pageerror", (e) => errs.push(e.message));
+p.on("console", (m) => m.type() === "error" && errs.push(m.text()));
+await p.goto("http://localhost:3000/sample4", { waitUntil: "networkidle0" });
+await new Promise((r) => setTimeout(r, 1000));
+await p.screenshot({ path: "/tmp/s4-a.png" });
+await new Promise((r) => setTimeout(r, 4000));
+await p.screenshot({ path: "/tmp/s4-b.png" });
+await p.screenshot({ path: "/tmp/s4-full.png", fullPage: true });
+const h = await p.$$('[role="slider"]');
+await h[1].evaluate((e) => e.scrollIntoView({ block: "center" }));
+await new Promise((r) => setTimeout(r, 300));
+const box = await h[1].boundingBox();
+await p.mouse.move(box.x + 40, box.y + 150);
+await p.mouse.down();
+await p.mouse.move(box.x + 40, box.y + 60, { steps: 8 });
+await p.mouse.up();
+const vals = await p.$$eval('[role="slider"]', (els) => els.map((e) => e.getAttribute("aria-valuenow")));
+console.log("after drag:", vals, "sum", vals.reduce((a, v) => a + +v, 0));
+const m = await p.$(".s4-mixer");
+await m.screenshot({ path: "/tmp/s4-mixer.png" });
+console.log("errors:", errs);
+await b.close();
