@@ -1,0 +1,20 @@
+{
+  "name": "@settle/sdk",
+  "version": "0.1.0",
+  "description": "Settle SDK: Stripe-style API client + gasless NEAR wallet helpers (meta transactions)",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./webhooks": "./src/webhooks.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "near-api-js": "7.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2"
+  }
+}
