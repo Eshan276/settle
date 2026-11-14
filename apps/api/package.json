@@ -1,0 +1,35 @@
+{
+  "name": "@settle/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "deploy:testnet": "tsx scripts/deploy-testnet.ts",
+    "test": "node --test --import tsx test/*.test.ts",
+    "e2e": "tsx test/e2e.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.7.0",
+    "@hono/node-server": "^2.1.6",
+    "@settle/sdk": "workspace:*",
+    "borsh": "2.0.0",
+    "hono": "^4.13.17",
+    "near-api-js": "7.4.0",
+    "pg": "^8.23.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/pg": "^8.23.1",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  },
+  "exports": {
+    "./app": "./src/app.ts",
+    "./background": "./src/background.ts",
+    "./config": "./src/config.ts"
+  }
+}
