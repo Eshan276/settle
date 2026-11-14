@@ -1,0 +1,208 @@
+@import "tailwindcss";
+
+/*
+ * Settle design tokens. Two themes from one system:
+ *   "Blue night" (default, from uberdesigner's beamfall): near-black page, navy glass, light-blue signal colour.
+ *   "Blue day": paper-white page, white cards, the same blue as ink.
+ * The theme is set on <html data-theme>; any element can pin a theme for its subtree with data-theme="dark"
+ * (the Home hero and the budget mixer are night pieces in both themes). Geist + Geist Mono throughout.
+ */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #010103;
+  --foreground: #eef3ff;
+  --card: #060914;
+  --card-foreground: var(--foreground);
+  --muted: rgb(90 150 255 / 0.08);
+  --muted-foreground: #93a1cf;
+  --border: rgb(140 185 255 / 0.12);
+  --input: rgb(140 185 255 / 0.22);
+  --primary: #8fc1ff;
+  --primary-foreground: #020615;
+  --accent: rgb(90 150 255 / 0.14);
+  --accent-foreground: #a9d4ff;
+  --destructive: #ff6a5e;
+  --destructive-soft: rgb(255 90 80 / 0.12);
+  --warning: #ffb547;
+  --warning-soft: rgb(255 180 70 / 0.1);
+  --ring: #8fd0ff;
+  --radius: 0.875rem;
+  --glass: linear-gradient(180deg, rgb(16 24 58 / 0.55) 0%, rgb(7 10 23 / 0.82) 40%, rgb(5 7 17 / 0.92) 100%);
+  --glass-edge: inset 0 0 0 1px rgb(140 185 255 / 0.12), inset 0 1px 0 rgb(190 215 255 / 0.16);
+  --glass-shadow: 0 40px 80px -50px rgb(40 90 255 / 0.45);
+  --pill: linear-gradient(180deg, #cfe2ff 0%, #7fb2ff 100%);
+  --pill-glow: 0 0 0 1px rgb(200 225 255 / 0.5) inset, 0 8px 28px -8px rgb(90 150 255 / 0.8);
+  --field: #04060f;
+  --input-hover: rgb(140 185 255 / 0.32);
+  --popover: #060a18;
+  --scrim: rgb(1 1 3 / 0.7);
+  --nav: rgb(10 16 40 / 0.6);
+  --warning-foreground: #1a1000;
+  --page-glow: rgb(40 90 255 / 0.16);
+  --leak: rgb(90 150 255 / 0.12);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --background: #f4f6fb;
+  --foreground: #0b1430;
+  --card: #ffffff;
+  --card-foreground: var(--foreground);
+  --muted: rgb(30 70 170 / 0.05);
+  --muted-foreground: #56648a;
+  --border: rgb(20 45 110 / 0.1);
+  --input: rgb(20 45 110 / 0.17);
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+  --accent: rgb(37 99 235 / 0.09);
+  --accent-foreground: #1d4fd0;
+  --destructive: #d1352b;
+  --destructive-soft: rgb(209 53 43 / 0.08);
+  --warning: #a35c00;
+  --warning-soft: rgb(220 140 20 / 0.12);
+  --ring: #2563eb;
+  --glass: linear-gradient(180deg, #ffffff 0%, #fdfdff 100%);
+  --glass-edge: inset 0 0 0 1px rgb(20 45 110 / 0.09), inset 0 1px 0 #ffffff;
+  --glass-shadow: 0 1px 2px rgb(20 45 110 / 0.05), 0 24px 48px -32px rgb(30 70 170 / 0.28);
+  --pill: linear-gradient(180deg, #4f86ff 0%, #2563eb 100%);
+  --pill-glow: 0 0 0 1px rgb(255 255 255 / 0.22) inset, 0 8px 22px -10px rgb(37 99 235 / 0.75);
+  --field: #ffffff;
+  --input-hover: rgb(20 45 110 / 0.3);
+  --popover: #ffffff;
+  --scrim: rgb(11 20 48 / 0.28);
+  --nav: rgb(255 255 255 / 0.75);
+  --warning-foreground: #ffffff;
+  --page-glow: rgb(37 99 235 / 0.08);
+  --leak: rgb(37 99 235 / 0.035);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-soft: var(--destructive-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    background: var(--background);
+  }
+  body {
+    background:
+      radial-gradient(ellipse 60% 420px at 50% -120px, var(--page-glow), transparent 70%),
+      var(--background);
+    color: var(--foreground);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-foreground);
+  }
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in {
+    animation: fade-in 180ms cubic-bezier(0.2, 0, 0, 1) both;
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+  }
+  .skeleton {
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    50% {
+      opacity: 0.55;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .drawer-in {
+    animation: drawer-in 200ms cubic-bezier(0.2, 0, 0, 1) both;
+  }
+  @keyframes drawer-in {
+    from {
+      transform: translateX(24px);
+      opacity: 0;
+    }
+  }
+}
+
+/* Navy glass panel with light leaking in from the top edge (the beamfall card, in CSS). */
+.glass {
+  position: relative;
+  isolation: isolate;
+  background: var(--glass);
+  box-shadow: var(--glass-edge), var(--glass-shadow);
+  border-color: transparent;
+}
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: -1;
+  height: 140px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(ellipse 55% 100% at 50% 0%, var(--leak), transparent 70%);
+}
+/* Small mono caption: "02 — RECEIVABLES" */
+.caption {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* Light theme: the Home hero is a night window at the top of a day page. */
+[data-theme="light"] .bf-hero {
+  background: #010103;
+  border-radius: 0 0 32px 32px;
+  margin: 0 10px;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+[data-theme="light"] .home-below-hero {
+  margin-top: 2.5rem;
+}
+/* A dark island inside the light theme: recompute inherited text colour, and give translucent glass a night backdrop. */
+[data-theme="dark"] {
+  color: var(--foreground);
+}
+[data-theme="light"] .bf-mixer {
+  background: var(--glass), #03050c;
+}

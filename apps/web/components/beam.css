@@ -1,0 +1,110 @@
+/* Beamfall pieces shared by the dashboard and /sample4: the treasury hero (uberdesigner "beamfall") and the
+   budget mixer (uberdesigner "budget-mixer", re-lit blue). Tokens follow beamfall's tokens.css. */
+.bf-hero, .bf-mixer {
+  --text: #eef3ff;
+  --sans: var(--font-geist-sans), system-ui, sans-serif;
+  --mono: var(--font-geist-mono), monospace;
+  --index: rgb(190 210 255 / 0.5);
+  --label: rgb(200 215 255 / 0.62);
+  --dim: rgb(170 190 240 / 0.6);
+  --value: #f4f7ff;
+  --chip: #9fd0ff;
+  --ring: rgb(140 185 255 / 0.18);
+  --blue-bg: rgb(90 150 255 / 0.08);
+  --dot: #8fd0ff;
+  --bad: #ff6a5e;
+  font-family: var(--sans);
+  color: var(--text);
+}
+.bf-cap { font: 500 11px var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); }
+.bf-mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.bf-index { font: 500 12px var(--mono); letter-spacing: 0.14em; color: var(--index); }
+.bf-display { margin-top: 10px; font-size: 34px; font-weight: 400; letter-spacing: -0.02em; }
+/* ---------------------------------------------------------------- hero */
+.bf-hero { position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent); mask-image: linear-gradient(180deg, #000 78%, transparent); }
+.bf-stage { position: absolute; left: 50%; top: 0; width: 1080px; height: 1080px; transform-origin: 50% 0; isolation: isolate; }
+.bf-canvas { position: absolute; inset: 0; width: 1080px; height: 1080px; }
+.bf-sparks { mix-blend-mode: screen; pointer-events: none; }
+.bf-glass-fallback { position: absolute; left: 280px; top: 340px; width: 520px; height: 400px; border-radius: 34px; background: #070a17; }
+.bf-circuits { position: absolute; inset: 0; width: 1080px; height: 1080px; overflow: visible; }
+.bf-trace { stroke: rgb(90 130 255 / 0.16); stroke-width: 1.2; }
+.bf-pulse { stroke: url(#bf-pulse); stroke-width: 2; stroke-linecap: round; }
+.bf-pulse-from { stop-color: #bcd6ff; stop-opacity: 0; }
+.bf-pulse-to { stop-color: #d8e8ff; }
+.bf-node { fill: #0b1230; stroke: rgb(140 185 255 / 0.55); stroke-width: 1.2; }
+.bf-rail { position: absolute; display: flex; flex-direction: column; gap: 3px; transform: translateY(-50%); white-space: nowrap; }
+.bf-rail-in { transform: translate(calc(-100% - 12px), -50%); text-align: right; }
+.bf-rail-out { margin-left: 12px; }
+.bf-rail-label { font: 500 11px var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: rgb(200 222 255 / 0.78); }
+.bf-rail-sub { font: 500 12px var(--mono); color: rgb(170 190 240 / 0.5); }
+
+/* the treasury card (no background: the glass is the shader's) */
+.bf-card { position: absolute; left: 280px; top: 340px; width: 520px; height: 400px; padding: 34px 38px; border-radius: 34px; overflow: hidden; opacity: 0; }
+.bf-card-row { display: flex; align-items: center; justify-content: space-between; }
+.bf-card .bf-index { font-size: 14px; }
+.bf-live { position: relative; display: flex; align-items: center; gap: 9px; padding: 6px 11px 6px 10px; border-radius: 99px; font: 500 13px var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: rgb(200 225 255 / 0.75); background: var(--blue-bg); box-shadow: inset 0 0 0 1px var(--ring); }
+.bf-live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--dot); box-shadow: 0 0 8px #7cc4ff; }
+.bf-live-ring { position: absolute; left: 10px; top: 50%; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; border: 1px solid var(--dot); }
+.bf-card-label { margin-top: 26px; font-size: 17px; letter-spacing: -0.005em; color: var(--label); }
+.bf-card-values { display: flex; align-items: baseline; gap: 14px; margin-top: 6px; }
+.bf-volume { font-weight: 500; font-size: 54px; line-height: 1.24; letter-spacing: -0.035em; color: var(--value); font-variant-numeric: tabular-nums; }
+.bf-change { font: 500 17px var(--mono); letter-spacing: 0.02em; color: var(--chip); }
+.bf-chart { position: absolute; left: 0; right: 0; bottom: 30px; height: 150px; }
+.bf-chart svg { width: 100%; height: 100%; overflow: visible; }
+.bf-fill-top { stop-color: #6aa8ff; stop-opacity: 0.38; }
+.bf-fill-bottom { stop-color: #6aa8ff; stop-opacity: 0; }
+.bf-line-from { stop-color: #7fb2ff; stop-opacity: 0.2; }
+.bf-line-mid { stop-color: #cfe2ff; }
+.bf-line-to { stop-color: #fff; }
+.bf-grid { stroke: rgb(160 190 255 / 0.08); stroke-width: 1; }
+.bf-line { fill: none; stroke: url(#bf-line); stroke-width: 2.4; stroke-linecap: round; }
+.bf-guide { stroke: rgb(190 215 255 / 0.25); stroke-dasharray: 3 4; }
+.bf-mglow { fill: rgb(150 195 255 / 0.25); }
+.bf-mdot { fill: #fff; }
+.bf-tip { position: absolute; padding: 5px 8px; border-radius: 7px; font: 500 13px var(--mono); color: #e9f1ff; background: rgb(20 30 70 / 0.85); box-shadow: inset 0 0 0 1px rgb(150 190 255 / 0.3); white-space: nowrap; transform: translate(-50%, -130%); }
+.bf-axis { position: absolute; left: 38px; right: 38px; bottom: 8px; display: flex; justify-content: space-between; font: 500 11.5px var(--mono); letter-spacing: 0.08em; color: rgb(170 190 240 / 0.38); }
+
+/* ---------------------------------------------------------------- the mixer (budget-mixer, blue) */
+.bf-mixer { padding: 30px 32px 26px; }
+.bf-mixer-head { display: flex; justify-content: space-between; }
+.bf-right { text-align: right; }
+.bf-split { display: flex; gap: 3px; height: 10px; margin-top: 22px; }
+.bf-split i { border-radius: 3px; transition: flex 0.25s cubic-bezier(.2,.7,.2,1), opacity 0.2s; }
+.bf-desk { display: flex; margin-top: 18px; }
+.bf-strip { position: relative; width: 150px; padding: 18px 0 0 22px; }
+.bf-strip + .bf-strip::before, .bf-master::before { content: ""; position: absolute; left: 0; top: 20px; bottom: 30px; width: 1px; background: linear-gradient(180deg, transparent, rgb(140 185 255 / 0.1) 20%, rgb(140 185 255 / 0.1) 80%, transparent); }
+.bf-strip-name { display: flex; align-items: center; gap: 8px; }
+.bf-strip-name i { width: 6px; height: 6px; border-radius: 2px; }
+.bf-lock { position: absolute; top: 40px; left: 22px; font-size: 10px; }
+.bf-fader { position: relative; height: 300px; margin-top: 46px; }
+.bf-ticks { position: absolute; left: 4px; top: 0; width: 18px; height: 300px; }
+.bf-tick { position: absolute; right: 0; height: 1px; background: rgb(160 190 255 / 0.16); }
+.bf-tick-label { position: absolute; right: 22px; font: 400 9px var(--mono); color: rgb(170 190 240 / 0.35); transform: translateY(-50%); }
+.bf-hit { position: absolute; left: 0; top: 0; width: 80px; height: 300px; cursor: ns-resize; touch-action: none; border-radius: 8px; }
+.bf-hit.bf-locked { cursor: not-allowed; }
+.bf-track { position: absolute; left: 32px; top: 0; width: 6px; height: 300px; border-radius: 3px; background: #04060f; box-shadow: inset 0 1px 2px rgba(0,0,0,.9), 0 1px 0 rgb(140 185 255 / 0.1); }
+.bf-fill { position: absolute; left: 0; right: 0; bottom: 0; border-radius: 3px; background: linear-gradient(0deg, rgb(90 150 255 / 0.1), rgb(160 200 255 / 0.55)); }
+.bf-capknob { position: absolute; left: 3px; width: 64px; height: 32px; margin-top: -16px; border-radius: 9px; background: linear-gradient(180deg, #f4f7ff 0%, #d0dbf3 48%, #a5b3d4 52%, #c8d3ec 100%); box-shadow: 0 10px 18px rgba(0,0,0,.6), 0 2px 4px rgba(0,0,0,.5), inset 0 1px 0 #fff, inset 0 -1px 0 rgba(0,0,0,.25); transition: top 0.25s cubic-bezier(.2,.7,.2,1); }
+.bf-capknob::before { content: ""; position: absolute; left: 8px; right: 8px; top: 15px; height: 2px; border-radius: 1px; background: #121a33; box-shadow: 0 1px 0 rgba(255,255,255,.6); }
+.bf-capring { position: absolute; inset: -5px; border-radius: 13px; box-shadow: 0 0 0 1px rgb(200 225 255 / 0.6), 0 0 24px rgb(110 165 255 / 0.45); opacity: 0; transition: opacity 0.15s; }
+.bf-held { transition: none; }
+.bf-held .bf-capring, .bf-hit:focus-visible .bf-capring { opacity: 1; }
+.bf-hit:focus-visible { outline: none; }
+.bf-meter { position: absolute; left: 92px; top: 0; width: 8px; height: 300px; }
+.bf-meter i { position: absolute; left: 0; width: 8px; height: 7px; border-radius: 2px; background: rgb(255 255 255 / 0.05); transition: background 0.2s, box-shadow 0.2s; }
+.bf-mark { position: absolute; left: -6px; width: 20px; height: 1px; background: rgb(200 222 255 / 0.4); }
+.bf-tag { position: absolute; left: 4px; padding: 4px 7px; border-radius: 6px; font: 400 10px var(--mono); color: #fff; background: rgb(255 75 62 / 0.18); box-shadow: inset 0 0 0 1px rgb(255 75 62 / 0.55); transform: translateX(-50%); white-space: nowrap; }
+.bf-strip-val { margin-top: 26px; font-size: 22px; letter-spacing: -0.02em; }
+.bf-strip .bf-cap:not(.bf-strip-name):not(.bf-lock) { margin-top: 6px; }
+.bf-strip-spent { margin-top: 8px; font: 400 11px var(--mono); color: var(--dim); }
+.bf-strip-spent b { font-weight: 400; color: rgb(238 243 255 / 0.85); }
+.bf-master { position: relative; flex: 1; padding: 18px 0 0 28px; }
+.bf-master dl { margin-top: 40px; max-width: 260px; }
+.bf-row { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-top: 1px solid rgb(140 185 255 / 0.1); }
+.bf-row:last-child { border-bottom: 1px solid rgb(140 185 255 / 0.1); }
+.bf-row dd { font-size: 15px; color: var(--text); }
+.bf-over { color: var(--bad) !important; text-shadow: 0 0 12px rgb(255 75 62 / 0.5); }
+.bf-hint { margin-top: 20px; max-width: 260px; font-size: 13px; line-height: 1.5; color: var(--label); }
+
+.bf-action { margin-top: 16px; }
+.bf-strip-name { max-width: 124px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
