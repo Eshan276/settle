@@ -1,0 +1,15 @@
+{
+  "name": "settle",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Stripe-grade payment infrastructure on NEAR: invoices, checkout, payroll, streams, subscriptions, splits, AI-agent spend policies, email payouts. Gasless via meta transactions, any-chain via NEAR Intents.",
+  "scripts": {
+    "build:contracts": "cd contracts && cargo near build non-reproducible-wasm --manifest-path settle/Cargo.toml && cargo near build non-reproducible-wasm --manifest-path mock-ft/Cargo.toml",
+    "test:contracts": "cd contracts && cargo test",
+    "dev:api": "pnpm --filter @settle/api dev",
+    "dev:web": "pnpm --filter @settle/web dev",
+    "deploy:testnet": "pnpm --filter @settle/api deploy:testnet",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "packageManager": "pnpm@11.3.0"
+}
