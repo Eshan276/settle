@@ -100,14 +100,8 @@ cd apps/web && node test/tour.mjs              # screenshot every dashboard page
 cd apps/web && node test/shoot-public.mjs /pay/<invoice id>   # landing, pay page, wallet, onboarding
 ```
 
-## Demo script (≈3 min)
-1. **/dashboard**: create "Acme Bakery". Note the absence of seed phrases and gas: the account is created and registered on-chain and funded with test sUSD.
-2. **Invoices**: create a $250 invoice and open the payment link in another window.
-3. **Pay page → "Any chain or token"**: pick SOL, get the deposit address and QR, then press *Simulate sending*. Watch it go detected → swapping → settled, flip to *Payment received*, and land in the dashboard activity feed.
-4. **AI accounts payable**: turn on the policy (auto-pay ≤ $1,000). Click *Insert a sample bill* → *Read bill* → *Pay with agent*, and it's paid on-chain. Then paste a $2,400 bill: it waits for **your** approval. Paste "URGENT, new bank details…": it's flagged and blocked.
-5. **Payroll**: paste two payees and pay. Start a salary stream, then open **/wallet** as the employee and watch the earned balance tick up.
-6. **Payouts**: send $25 to an email and open the claim link. The recipient picks a name and gets the money: no wallet, no gas.
-7. **Developers**: create an API key, and show the webhook signature and the 10-line SDK quickstart.
+Demo - https://x.com/iambreakingProd/status/2121530909908459870?s=20
+
 
 ## Testnet vs mainnet
 - NEAR Intents has **no testnet**. With `INTENTS_MODE=simulated` (the testnet default), the quote and swap lifecycle are faked, but the **settlement into the invoice is a real on-chain transaction**. Set `NEAR_NETWORK=mainnet` and `INTENTS_MODE=live` to use the real 1Click API (`/v0/quote` EXACT_OUTPUT → `/v0/status`).
